@@ -1,0 +1,35 @@
+{
+  "itemGroup.internet_tab": "万物联网",
+
+  "item.internet_of_things.phone": "手机",
+
+  "block.internet_of_things.signal_base_station": "信号基站",
+
+  "msg.internet_of_things.network_level": "网络等级：%s（区块 %s, %s）",
+
+
+  "key.categories.internet_of_things": "万物联网",
+  "key.internet_of_things.open_phone": "打开手机",
+
+  "screen.internet_of_things.phone.title": "手机",
+  "screen.internet_of_things.phone.album": "相册",
+  "screen.internet_of_things.phone.trade": "交易",
+  "screen.internet_of_things.phone.home": "家居",
+  "screen.internet_of_things.phone.production": "生产",
+
+
+  "internet_of_things.configuration.title": "Internet of Things Configs",
+  "internet_of_things.configuration.section.internet_of_things.common.toml": "Internet of Things Configs",
+  "internet_of_things.configuration.section.internet_of_things.common.toml.title": "Internet of Things Configs",
+  "internet_of_things.configuration.items": "Item List",
+  "internet_of_things.configuration.logDirtBlock": "Log Dirt Block",
+  "internet_of_things.configuration.magicNumberIntroduction": "Magic Number Text",
+  "internet_of_things.configuration.magicNumber": "Magic Number",
+  "internet_of_things.configuration.network": "网络配置",
+  "internet_of_things.configuration.phone": "手机配置",
+  "config.internet_of_things.base_station_center_level": "基站中心信号等级",
+  "config.internet_of_things.world_base_network_level": "世界基础网络等级",
+  "config.internet_of_things.base_station_decay_step": "基站信号区块衰减步长",
+  "config.internet_of_things.phone_tooltip_unlimited": "手机信号显示无上限",
+  "config.internet_of_things.phone_tooltip_max_level": "手机信号显示最大等级"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "internet_of_things:block/signal_base_station"
+  }
+
+}

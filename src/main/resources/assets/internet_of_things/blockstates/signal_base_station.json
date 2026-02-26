@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "internet_of_things:block/signal_base_station" }
+  }
+}

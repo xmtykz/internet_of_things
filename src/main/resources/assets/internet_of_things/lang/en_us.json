@@ -1,0 +1,15 @@
+{
+  "itemGroup.internet_tab": "internet of things",
+
+  "item.internet_of_things.phone": "phone",
+
+  "block.internet_of_things:signal_base_station": "signal base station",
+
+  "internet_of_things.configuration.title": "Internet of Things Configs",
+  "internet_of_things.configuration.section.internet_of_things.common.toml": "Internet of Things Configs",
+  "internet_of_things.configuration.section.internet_of_things.common.toml.title": "Internet of Things Configs",
+  "internet_of_things.configuration.items": "Item List",
+  "internet_of_things.configuration.logDirtBlock": "Log Dirt Block",
+  "internet_of_things.configuration.magicNumberIntroduction": "Magic Number Text",
+  "internet_of_things.configuration.magicNumber": "Magic Number"
+}

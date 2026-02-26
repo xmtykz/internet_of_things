@@ -1,0 +1,25 @@
+{
+  "parent": "internet_of_things:root",
+  "display": {
+    "icon": { "id": "internet_of_things:signal_base_station", "count": 1 },
+    "title": { "text": "第一座基站" },
+    "description": { "text": "获得信号基站" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_station": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          { "items": ["internet_of_things:signal_base_station"] }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_station"]
+    ]
+  }

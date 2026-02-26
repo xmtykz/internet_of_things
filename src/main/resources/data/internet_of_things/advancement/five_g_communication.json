@@ -1,0 +1,20 @@
+{
+  "parent": "internet_of_things:first_base_station",
+  "display": {
+    "icon": { "id": "minecraft:redstone", "count": 1 },
+    "title": { "text": "5G通讯" },
+    "description": { "text": "连接到互联网" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "connected": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    ["connected"]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "id": "internet_of_things:phone", "count": 1 },
+    "title": { "text": "万物互联" },
+    "description": { "text": "这是物联网的时代" },
+    "background": "internet_of_things:textures/gui/advancements/backgrounds/iot.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "tick": { "trigger": "minecraft:tick" }
+  },
+  "requirements": [
+    ["tick"]
+  ]
+}
