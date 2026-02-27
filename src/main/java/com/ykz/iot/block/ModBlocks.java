@@ -1,6 +1,7 @@
 package com.ykz.iot.block;
 
 import com.ykz.iot.InternetofThings;
+import com.ykz.iot.compat.exposure.ExposureCompat;
 import com.ykz.iot.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -20,6 +21,23 @@ public class ModBlocks {
             registerBlocks("signal_base_station",
                     () -> new SignalBaseStationBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F))
             );
+
+    public static final DeferredBlock<Block> PRINTER;
+    public static final DeferredBlock<Block> SCANNER;
+
+    static {
+        if (ExposureCompat.isLoaded()) {
+            PRINTER = registerBlocks("printer",
+                    () -> new PrinterBlock(BlockBehaviour.Properties.of().strength(2.5F))
+            );
+            SCANNER = registerBlocks("scanner",
+                    () -> new ScannerBlock(BlockBehaviour.Properties.of().strength(2.5F))
+            );
+        } else {
+            PRINTER = null;
+            SCANNER = null;
+        }
+    }
 
     private static <T extends Block> void registerBlockItems(String name, DeferredBlock<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

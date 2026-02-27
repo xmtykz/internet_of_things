@@ -22,6 +22,22 @@ public class ModBlockEntities {
                     ).build(null)
             );
 
+    public static final Supplier<BlockEntityType<PrinterBlockEntity>> PRINTER;
+
+    static {
+        if (ModBlocks.PRINTER != null) {
+            PRINTER = BLOCK_ENTITY_TYPES.register(
+                    "printer",
+                    () -> BlockEntityType.Builder.of(
+                            PrinterBlockEntity::new,
+                            ModBlocks.PRINTER.get()
+                    ).build(null)
+            );
+        } else {
+            PRINTER = null;
+        }
+    }
+
     public static void register(IEventBus bus) {
         BLOCK_ENTITY_TYPES.register(bus);
     }

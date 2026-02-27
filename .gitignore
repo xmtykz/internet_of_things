@@ -24,3 +24,6 @@ runs
 run-data
 
 repo
+
+# temp scratch files
+.tmp_*.java

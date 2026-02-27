@@ -1,15 +1,22 @@
 package com.ykz.iot.item;
 
-import com.ykz.iot.Config;
 import com.ykz.iot.client.ClientSignalCache;
-import net.minecraft.ChatFormatting;
+import com.ykz.iot.device.DoorPosHelper;
+import com.ykz.iot.device.IotTags;
+import com.ykz.iot.network.DeviceNetworkService;
+import com.ykz.iot.util.SignalTextFormatter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -19,13 +26,11 @@ public class PhoneItem extends Item {
         super(properties);
     }
 
-    // 右键空气：打开手机 GUI（你选了 4B：右键方块不拦截）
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (level.isClientSide) {
-            // 这里用反射调用客户端类，避免 Dedicated Server 因为类加载报错
             try {
                 Class.forName("com.ykz.iot.client.ClientHooks")
                         .getMethod("openPhoneScreen")
@@ -38,20 +43,33 @@ public class PhoneItem extends Item {
     }
 
     @Override
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = DoorPosHelper.normalizeDoorBasePos(level, context.getClickedPos());
+        if (level.getBlockState(pos).is(IotTags.NETWORKABLE_DOORS)) {
+            if (level instanceof ServerLevel serverLevel && context.getPlayer() instanceof ServerPlayer player) {
+                DeviceNetworkService.sendDeviceDetail(player, pos, true);
+            }
+            return InteractionResult.sidedSuccess(level.isClientSide);
+        }
+
+        if (level.isClientSide) {
+            openPhoneScreenClientOnly();
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        int level = ClientSignalCache.getSignalLevel();
+        tooltipComponents.add(SignalTextFormatter.formatSignalText(ClientSignalCache.getSignalLevel()));
+    }
 
-        // 你确认：<1 就无信号（以后可能出现负数）
-        if (level < 1) {
-            tooltipComponents.add(Component.literal("无信号").withStyle(ChatFormatting.RED));
-            return;
+    private static void openPhoneScreenClientOnly() {
+        try {
+            Class.forName("com.ykz.iot.client.ClientHooks")
+                    .getMethod("openPhoneScreen")
+                    .invoke(null);
+        } catch (Throwable ignored) {
         }
-
-        int showLevel = level;
-        if (!Config.PHONE_TOOLTIP_UNLIMITED.getAsBoolean()) {
-            showLevel = Math.min(level, Config.PHONE_TOOLTIP_MAX_LEVEL.get());
-        }
-
-        tooltipComponents.add(Component.literal("当前信号强度：" + showLevel + "级").withStyle(ChatFormatting.BLUE));
     }
 }
