@@ -9,8 +9,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
-    private static final ResourceLocation HOPPER_TEXTURE =
-            ResourceLocation.withDefaultNamespace("textures/gui/container/hopper.png");
+    private static final ResourceLocation PRINTER_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("internet_of_things", "textures/gui/printer.png");
+    private static final int TEXTURE_WIDTH = 256;
+    private static final int TEXTURE_HEIGHT = 256;
+    private static final int PROGRESS_X = 116;
+    private static final int PROGRESS_Y = 18;
+    private static final int PROGRESS_U = 176;
+    private static final int PROGRESS_V = 0;
+    private static final int PROGRESS_W = 24;
+    private static final int PROGRESS_H = 17;
 
     public PrinterScreen(PrinterMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
@@ -29,14 +37,23 @@ public class PrinterScreen extends AbstractContainerScreen<PrinterMenu> {
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        guiGraphics.blit(HOPPER_TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(PRINTER_TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, TEXTURE_WIDTH, TEXTURE_HEIGHT);
 
         int progress = menu.getProgress();
         int max = menu.getMaxProgress();
         if (max > 0 && progress > 0) {
-            int width = Math.max(1, Math.min(24, (progress * 24) / max));
-            guiGraphics.fill(leftPos + 104, topPos + 36, leftPos + 104 + width, topPos + 40, 0xFF2ECC71);
+            int width = Math.max(1, Math.min(PROGRESS_W, (progress * PROGRESS_W) / max));
+            guiGraphics.blit(PRINTER_TEXTURE, leftPos + PROGRESS_X, topPos + PROGRESS_Y,
+                    PROGRESS_U, PROGRESS_V, width, PROGRESS_H, TEXTURE_WIDTH, TEXTURE_HEIGHT);
         }
+
+        Component status = menu.isNetworkOnline()
+                ? Component.translatable("text.internet_of_things.printer.tip_open_album")
+                : Component.translatable("text.internet_of_things.printer.offline_banner");
+        int color = menu.isNetworkOnline() ? 0x404040 : 0xFF4040;
+        int x = leftPos + imageWidth - 6 - this.font.width(status);
+        int y = topPos + 6;
+        guiGraphics.drawString(this.font, status, x, y, color, false);
     }
 
     @Override

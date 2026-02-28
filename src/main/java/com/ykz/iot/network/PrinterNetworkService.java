@@ -69,6 +69,7 @@ public final class PrinterNetworkService {
             case OFFLINE -> actionBar(player, "text.internet_of_things.printer.offline", ChatFormatting.RED);
             case BUSY -> actionBar(player, "text.internet_of_things.printer.busy", ChatFormatting.RED);
             case OUTPUT_OCCUPIED -> actionBar(player, "text.internet_of_things.printer.output_occupied", ChatFormatting.RED);
+            case INSUFFICIENT_PAPER -> actionBar(player, "text.internet_of_things.printer.insufficient_paper", ChatFormatting.RED);
             case INSUFFICIENT_DYES -> actionBar(player, "text.internet_of_things.printer.insufficient_dyes", ChatFormatting.RED);
             case INVALID_IMAGE -> actionBar(player, "text.internet_of_things.printer.invalid_photo", ChatFormatting.RED);
         }

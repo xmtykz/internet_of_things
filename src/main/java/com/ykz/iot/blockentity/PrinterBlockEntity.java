@@ -39,6 +39,7 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
             return switch (id) {
                 case 0 -> progress;
                 case 1 -> maxProgress;
+                case 2 -> isNetworkOnline() ? 1 : 0;
                 default -> 0;
             };
         }
@@ -55,7 +56,7 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
     };
 
@@ -132,10 +133,14 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
     }
 
     public boolean hasEnoughDyes() {
-        return !getItem(PrinterSlots.CYAN).isEmpty()
-                && !getItem(PrinterSlots.MAGENTA).isEmpty()
-                && !getItem(PrinterSlots.YELLOW).isEmpty()
-                && !getItem(PrinterSlots.BLACK).isEmpty();
+        return isCyan(getItem(PrinterSlots.CYAN))
+                && isMagenta(getItem(PrinterSlots.MAGENTA))
+                && isYellow(getItem(PrinterSlots.YELLOW))
+                && isBlack(getItem(PrinterSlots.BLACK));
+    }
+
+    public boolean hasPaper() {
+        return isPaper(getItem(PrinterSlots.PAPER));
     }
 
     public boolean outputIsEmpty() {
@@ -143,6 +148,7 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
     }
 
     public void consumeOneSetOfDyes() {
+        getItem(PrinterSlots.PAPER).shrink(1);
         getItem(PrinterSlots.CYAN).shrink(1);
         getItem(PrinterSlots.MAGENTA).shrink(1);
         getItem(PrinterSlots.YELLOW).shrink(1);
@@ -159,6 +165,9 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
         }
         if (!outputIsEmpty()) {
             return StartCheck.OUTPUT_OCCUPIED;
+        }
+        if (!hasPaper()) {
+            return StartCheck.INSUFFICIENT_PAPER;
         }
         if (!hasEnoughDyes()) {
             return StartCheck.INSUFFICIENT_DYES;
@@ -273,6 +282,7 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
         OFFLINE,
         BUSY,
         OUTPUT_OCCUPIED,
+        INSUFFICIENT_PAPER,
         INSUFFICIENT_DYES,
         INVALID_IMAGE
     }
@@ -326,12 +336,33 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
             return false;
         }
         return switch (slot) {
-            case PrinterSlots.CYAN -> stack.is(Items.CYAN_DYE);
-            case PrinterSlots.MAGENTA -> stack.is(Items.MAGENTA_DYE);
-            case PrinterSlots.YELLOW -> stack.is(Items.YELLOW_DYE);
-            case PrinterSlots.BLACK -> stack.is(Items.BLACK_DYE);
+            case PrinterSlots.PAPER -> isPaper(stack);
+            case PrinterSlots.CYAN -> isCyan(stack);
+            case PrinterSlots.MAGENTA -> isMagenta(stack);
+            case PrinterSlots.YELLOW -> isYellow(stack);
+            case PrinterSlots.BLACK -> isBlack(stack);
             default -> false;
         };
+    }
+
+    private static boolean isPaper(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(Items.PAPER);
+    }
+
+    private static boolean isCyan(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(Items.CYAN_DYE);
+    }
+
+    private static boolean isMagenta(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(Items.MAGENTA_DYE);
+    }
+
+    private static boolean isYellow(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(Items.YELLOW_DYE);
+    }
+
+    private static boolean isBlack(ItemStack stack) {
+        return !stack.isEmpty() && stack.is(Items.BLACK_DYE);
     }
 
     @Override

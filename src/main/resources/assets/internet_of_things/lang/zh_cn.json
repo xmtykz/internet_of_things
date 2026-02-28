@@ -63,11 +63,14 @@
   "text.internet_of_things.printer.not_found": "未找到已加载区块内的在线打印机",
   "text.internet_of_things.printer.queued": "已加入打印队列",
   "text.internet_of_things.printer.offline": "打印机未联网",
+  "text.internet_of_things.printer.offline_banner": "设备已离线",
   "text.internet_of_things.printer.busy": "打印机正在工作",
   "text.internet_of_things.printer.output_occupied": "打印机输出槽未清空",
+  "text.internet_of_things.printer.insufficient_paper": "打印机缺少纸张",
   "text.internet_of_things.printer.insufficient_dyes": "打印机缺少青/品红/黄/黑染料",
   "text.internet_of_things.printer.done": "照片已打印",
   "text.internet_of_things.printer.failed": "打印失败",
+  "text.internet_of_things.printer.tip_open_album": "打开手机相册以打印",
 
   "container.internet_of_things.printer": "打印机",
 
@@ -89,4 +92,3 @@
 
   "config.jade.plugin_internet_of_things.owned_device_name": "所属设备名称"
 }
-

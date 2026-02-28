@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "internet_of_things:block/printer_bottom",
+    "up": "internet_of_things:block/printer_top",
+    "north": "internet_of_things:block/printer_front",
+    "south": "internet_of_things:block/printer_back",
+    "west": "internet_of_things:block/printer_left",
+    "east": "internet_of_things:block/printer_right",
+    "particle": "internet_of_things:block/printer_front"
+  }
+}
+

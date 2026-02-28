@@ -1,7 +1,8 @@
 {
   "variants": {
-    "": {
-      "model": "minecraft:block/crafting_table"
-    }
+    "facing=north": { "model": "internet_of_things:block/printer" },
+    "facing=east":  { "model": "internet_of_things:block/printer", "y": 90 },
+    "facing=south": { "model": "internet_of_things:block/printer", "y": 180 },
+    "facing=west":  { "model": "internet_of_things:block/printer", "y": 270 }
   }
 }

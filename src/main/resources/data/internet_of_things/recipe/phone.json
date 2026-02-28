@@ -9,11 +9,14 @@
     },
     "C": {
       "item": "minecraft:glass_pane"
+    },
+    "D": {
+      "item": "internet_of_things:network_module"
     }
   },
   "pattern": [
-    "ABA",
-    "BCB",
+    "ACA",
+    "BDB",
     "ABA"
   ],
   "result": {

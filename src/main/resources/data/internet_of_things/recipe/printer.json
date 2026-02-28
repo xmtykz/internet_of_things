@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IGI",
+    "RNR",
+    "IDI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "N": {
+      "item": "internet_of_things:network_module"
+    },
+    "D": {
+      "item": "minecraft:dispenser"
+    }
+  },
+  "result": {
+    "id": "internet_of_things:printer",
+    "count": 1
+  }
+}
+

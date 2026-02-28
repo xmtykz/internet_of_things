@@ -22,11 +22,38 @@ public class PrinterMenu extends AbstractContainerMenu {
         this.blockEntity = blockEntity;
         this.data = data;
 
-        addSlot(new Slot(blockEntity, PrinterSlots.CYAN, 26, 20));
-        addSlot(new Slot(blockEntity, PrinterSlots.MAGENTA, 44, 20));
-        addSlot(new Slot(blockEntity, PrinterSlots.YELLOW, 62, 20));
-        addSlot(new Slot(blockEntity, PrinterSlots.BLACK, 80, 20));
-        addSlot(new Slot(blockEntity, PrinterSlots.OUTPUT, 134, 20) {
+        addSlot(new Slot(blockEntity, PrinterSlots.PAPER, 8, 19) {
+            @Override
+            public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
+                return stack.is(net.minecraft.world.item.Items.PAPER);
+            }
+        });
+        // Leave space for "+" between paper and dyes.
+        addSlot(new Slot(blockEntity, PrinterSlots.CYAN, 42, 19) {
+            @Override
+            public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
+                return stack.is(net.minecraft.world.item.Items.CYAN_DYE);
+            }
+        });
+        addSlot(new Slot(blockEntity, PrinterSlots.MAGENTA, 60, 19) {
+            @Override
+            public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
+                return stack.is(net.minecraft.world.item.Items.MAGENTA_DYE);
+            }
+        });
+        addSlot(new Slot(blockEntity, PrinterSlots.YELLOW, 78, 19) {
+            @Override
+            public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
+                return stack.is(net.minecraft.world.item.Items.YELLOW_DYE);
+            }
+        });
+        addSlot(new Slot(blockEntity, PrinterSlots.BLACK, 96, 19) {
+            @Override
+            public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
+                return stack.is(net.minecraft.world.item.Items.BLACK_DYE);
+            }
+        });
+        addSlot(new Slot(blockEntity, PrinterSlots.OUTPUT, 148, 19) {
             @Override
             public boolean mayPlace(@NotNull net.minecraft.world.item.ItemStack stack) {
                 return false;
@@ -50,7 +77,7 @@ public class PrinterMenu extends AbstractContainerMenu {
         BlockPos pos = buffer.readBlockPos();
         BlockEntity blockEntity = playerInventory.player.level().getBlockEntity(pos);
         if (blockEntity instanceof PrinterBlockEntity printerBlockEntity) {
-            return new PrinterMenu(containerId, playerInventory, printerBlockEntity, new SimpleContainerData(2));
+            return new PrinterMenu(containerId, playerInventory, printerBlockEntity, new SimpleContainerData(3));
         }
         throw new IllegalStateException("Printer block entity missing at " + pos);
     }
@@ -66,6 +93,10 @@ public class PrinterMenu extends AbstractContainerMenu {
     public int getMaxProgress() {
         int max = data.get(1);
         return max <= 0 ? PrinterBlockEntity.PRINT_DURATION_TICKS : max;
+    }
+
+    public boolean isNetworkOnline() {
+        return data.get(2) > 0;
     }
 
     @Override
@@ -86,7 +117,7 @@ public class PrinterMenu extends AbstractContainerMenu {
                     return net.minecraft.world.item.ItemStack.EMPTY;
                 }
             } else {
-                if (!moveItemStackTo(slotStack, PrinterSlots.CYAN, PrinterSlots.OUTPUT, false)) {
+                if (!moveItemStackTo(slotStack, PrinterSlots.PAPER, PrinterSlots.OUTPUT, false)) {
                     return net.minecraft.world.item.ItemStack.EMPTY;
                 }
             }
