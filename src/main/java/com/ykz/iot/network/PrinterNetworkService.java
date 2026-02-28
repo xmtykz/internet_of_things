@@ -4,6 +4,7 @@ import com.ykz.iot.InternetofThings;
 import com.ykz.iot.blockentity.PrinterBlockEntity;
 import com.ykz.iot.compat.exposure.ExposureCompat;
 import com.ykz.iot.network.payload.printer.PrinterPrintRequestPayload;
+import com.ykz.iot.network.payload.printer.PrinterStatusPayload;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +38,18 @@ public final class PrinterNetworkService {
                 (payload, ctx) -> ctx.enqueueWork(() -> {
                     if (ctx.player() instanceof ServerPlayer player) {
                         handlePrintRequest(player, payload);
+                    }
+                }));
+
+        registrar.playToClient(
+                PrinterStatusPayload.TYPE,
+                PrinterStatusPayload.STREAM_CODEC,
+                (payload, ctx) -> ctx.enqueueWork(() -> {
+                    try {
+                        Class<?> cls = Class.forName("com.ykz.iot.client.printer.PrinterClientBridge");
+                        cls.getMethod("handleStatusMessage", String.class, String.class)
+                                .invoke(null, payload.key(), payload.style());
+                    } catch (Throwable ignored) {
                     }
                 }));
     }
@@ -109,6 +123,7 @@ public final class PrinterNetworkService {
     }
 
     private static void actionBar(ServerPlayer player, String key, ChatFormatting style) {
-        player.displayClientMessage(Component.translatable(key).withStyle(style), true);
+        PacketDistributor.sendToPlayer(player,
+                new PrinterStatusPayload(key, style.getName()));
     }
 }

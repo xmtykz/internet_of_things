@@ -621,14 +621,10 @@ public final class ExposureRuntime {
 
             invokeCompatible(exporter, "export");
             if (exported.get()) {
-                File file = exportedFile.get();
-                showToast(Component.translatable("text.internet_of_things.phone.camera.saved",
-                        file != null ? file.getName() : expectedFile.getName()));
                 return;
             }
 
             if (expectedFile.exists()) {
-                showToast(Component.translatable("text.internet_of_things.phone.camera.saved", expectedFile.getName()));
                 return;
             }
 

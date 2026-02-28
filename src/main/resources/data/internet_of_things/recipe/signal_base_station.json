@@ -1,0 +1,20 @@
+﻿{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "INI",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "internet_of_things:network_module"
+    }
+  },
+  "result": {
+    "id": "internet_of_things:signal_base_station",
+    "count": 1
+  }
+}

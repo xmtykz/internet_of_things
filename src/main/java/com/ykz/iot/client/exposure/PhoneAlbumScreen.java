@@ -41,6 +41,8 @@ public class PhoneAlbumScreen extends Screen {
 
     private int scrollRows = 0;
     private Path selectedPhoto;
+    private Component statusMessage;
+    private int statusMessageTicks = 0;
     private Button shareButton;
     private Button printButton;
     private Button exportButton;
@@ -105,6 +107,7 @@ public class PhoneAlbumScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 12, 0xFFFFFF);
+        renderStatusMessage(guiGraphics);
 
         int cols = getColumns();
         int visibleRows = getVisibleRows();
@@ -152,6 +155,17 @@ public class PhoneAlbumScreen extends Screen {
         int delta = scrollY < 0 ? 1 : -1;
         scrollRows = Mth.clamp(scrollRows + delta, 0, maxScroll);
         return true;
+    }
+
+    @Override
+    public void tick() {
+        if (statusMessageTicks > 0) {
+            statusMessageTicks--;
+            if (statusMessageTicks == 0) {
+                statusMessage = null;
+            }
+        }
+        super.tick();
     }
 
     private int getColumns() {
@@ -303,6 +317,7 @@ public class PhoneAlbumScreen extends Screen {
             return;
         }
         Path path = selectedPhoto;
+        int index = photos.indexOf(path);
         try {
             Files.deleteIfExists(path);
         } catch (IOException ignored) {
@@ -310,7 +325,18 @@ public class PhoneAlbumScreen extends Screen {
         }
         photos.remove(path);
         releaseTexture(path);
-        selectedPhoto = null;
+        if (!photos.isEmpty()) {
+            int nextIndex = index;
+            if (nextIndex < 0) {
+                nextIndex = 0;
+            }
+            if (nextIndex >= photos.size()) {
+                nextIndex = photos.size() - 1;
+            }
+            selectedPhoto = photos.get(nextIndex);
+        } else {
+            selectedPhoto = null;
+        }
 
         int cols = getColumns();
         int visibleRows = getVisibleRows();
@@ -325,20 +351,20 @@ public class PhoneAlbumScreen extends Screen {
             return;
         }
         if (!ExposureCompat.isCompatible()) {
-            showActionBar("text.internet_of_things.printer.unavailable", ChatFormatting.RED);
+            showInlineMessage(Component.translatable("text.internet_of_things.printer.unavailable").withStyle(ChatFormatting.RED), 60);
             return;
         }
 
         ExposurePrintPayloadEncoder.EncodedPhoto encoded = ExposurePrintPayloadEncoder.encode(selectedPhoto);
         if (encoded == null) {
-            showActionBar("text.internet_of_things.printer.invalid_photo", ChatFormatting.RED);
+            showInlineMessage(Component.translatable("text.internet_of_things.printer.invalid_photo").withStyle(ChatFormatting.RED), 60);
             return;
         }
         long pixelCount = (long) encoded.width() * encoded.height();
         if (encoded.width() <= 0 || encoded.height() <= 0
                 || pixelCount <= 0
                 || encoded.pixels() == null || encoded.pixels().length != pixelCount) {
-            showActionBar("text.internet_of_things.printer.invalid_photo", ChatFormatting.RED);
+            showInlineMessage(Component.translatable("text.internet_of_things.printer.invalid_photo").withStyle(ChatFormatting.RED), 60);
             return;
         }
 
@@ -351,10 +377,17 @@ public class PhoneAlbumScreen extends Screen {
         ));
     }
 
-    private void showActionBar(String key, ChatFormatting style) {
-        if (minecraft != null && minecraft.player != null) {
-            minecraft.player.displayClientMessage(Component.translatable(key).withStyle(style), true);
+    public void showInlineMessage(Component message, int ticks) {
+        statusMessage = message;
+        statusMessageTicks = Math.max(0, ticks);
+    }
+
+    private void renderStatusMessage(GuiGraphics guiGraphics) {
+        if (statusMessage == null || statusMessageTicks <= 0) {
+            return;
         }
+        int y = this.height - 54;
+        guiGraphics.drawCenteredString(this.font, statusMessage, this.width / 2, y, 0xFFFFFF);
     }
 
     @Override

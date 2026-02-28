@@ -1,4 +1,4 @@
-{
+﻿{
   "itemGroup.internet_tab": "Internet of Things",
   "item.internet_of_things.phone": "Phone",
   "item.internet_of_things.network_module": "Network Module",
@@ -72,6 +72,25 @@
   "text.internet_of_things.printer.failed": "Printing failed",
   "text.internet_of_things.printer.tip_open_album": "Open phone album to print",
   "container.internet_of_things.printer": "Printer",
+
+  "container.internet_of_things.scanner": "Scanner",
+  "gui.internet_of_things.scanner.scan": "Scan",
+  "text.internet_of_things.scanner.unavailable": "Exposure mod is unavailable",
+  "text.internet_of_things.scanner.not_found": "Scanner not found",
+  "text.internet_of_things.scanner.too_far": "Too far from scanner",
+  "text.internet_of_things.scanner.queued": "Scan task queued",
+  "text.internet_of_things.scanner.offline": "Scanner is offline",
+  "text.internet_of_things.scanner.offline_banner": "Device Offline",
+  "text.internet_of_things.scanner.online_banner": "Device Online",
+  "text.internet_of_things.scanner.busy": "Scanner is busy",
+  "text.internet_of_things.scanner.no_source": "Insert developed film or photograph",
+  "text.internet_of_things.scanner.no_film": "No developed film inserted",
+  "text.internet_of_things.scanner.no_photo": "No photograph inserted",
+  "text.internet_of_things.scanner.invalid_frame": "Current image cannot be scanned",
+  "text.internet_of_things.scanner.tip_scan": "Insert developed film or photograph, then scan",
+  "text.internet_of_things.scanner.tip_scan_flatbed": "Insert photograph, then scan",
+  "text.internet_of_things.scanner.flatbed_coming_soon": "Flatbed scanning is coming soon",
+  "text.internet_of_things.scanner.export_failed": "Failed to export scanned photo",
 
   "internet_of_things.configuration.title": "Internet of Things Configs",
   "internet_of_things.configuration.section.internet_of_things.common.toml": "Internet of Things Configs",

@@ -23,6 +23,7 @@ public class ModBlockEntities {
             );
 
     public static final Supplier<BlockEntityType<PrinterBlockEntity>> PRINTER;
+    public static final Supplier<BlockEntityType<ScannerBlockEntity>> SCANNER;
 
     static {
         if (ModBlocks.PRINTER != null) {
@@ -35,6 +36,18 @@ public class ModBlockEntities {
             );
         } else {
             PRINTER = null;
+        }
+
+        if (ModBlocks.SCANNER != null) {
+            SCANNER = BLOCK_ENTITY_TYPES.register(
+                    "scanner",
+                    () -> BlockEntityType.Builder.of(
+                            ScannerBlockEntity::new,
+                            ModBlocks.SCANNER.get()
+                    ).build(null)
+            );
+        } else {
+            SCANNER = null;
         }
     }
 

@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "internet_of_things:printer"
+    "internet_of_things:printer",
+    "internet_of_things:scanner"
   ]
 }
-

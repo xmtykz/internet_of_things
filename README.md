@@ -1,25 +1,117 @@
+# 万物联网 Internet of Things（NeoForge 1.21.1）
 
-Installation information
-=======
+所有者：YKZYKZ
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+本文档适用版本：0.2.1
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+---
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+# 如何下载安装
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+## 方法一：GitHub安装
+1. 下载好1.21.1版本的java版minecraft，并使用neoforge模组加载器。
+2. 点击本项目主页右侧的release按钮下载最新版的以 `.jar` 为后缀名的模组文件。
+3. 建议开启版本隔离（大多数非官方启动器如PCL启动器默认开启版本隔离，无需手动操作）。
+4. 将本模组的jar文件放入游戏的版本文件夹下的 `mods/` 文件夹内，然后开始游戏。
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+---
+# 注意事项
+
+### 强烈建议同时安装exposure（拾光定影）模组以获得本模组的完整游戏体验
+
+---
+
+# 重要物品介绍
+
+## 手机
+手机集成了本模组的大量功能，是统一入口，可打开智能家居等界面。
+
+- 手机需要在有网络覆盖时才可以实现全部功能（`信号基站`可提供网络）。
+- 手机的工具提示框会显示当前信号等级/网络等级，默认最大显示4级。
+- 身上存在手机时，联网和断网会收到提示。
+
+## 信号基站
+信号基站会为周边区块提供网络（信号等级可叠加）。
+
+- 默认情况下， 提供的信号等级从所在区块的4级向周围区块递减，  
+区块每隔一个曼哈顿距离，信号等级-1，直至归零（呈菱形网络区域）。  
+配置界面可修改此配置。
+- 手持信号基站时，屏幕下方会显示当前区块的网络等级与区块坐标。
+
+## 网络模块
+网络模块是合成大多数模组物品的重要物品，可为`可联网设备`装上。
+
+- shift+右键 *未安装网络模块的可联网设备* 可快捷安装网络模块。
+- 手机界面可访问与配置`可联网设备`的功能。
+
+---
+
+# 可联网设备
+配方不含有网络模块的可联网设备需要安装网络模块才能正常使用。
+
+## 门
+
+- 定时开关。
+- 远程遥控开关。
+
+## 打印机
+**此设备需安装exposure模组才能使用。**
+
+- 自带网络模块，无需额外安装。
+- 附近有打印机联网时，在手机`相册`界面选择照片并点击“打印”，会消耗打印机内的  
+`纸`+`青色染料`+`品红色染料`+`黄色染料`+`黑色染料`打印此照片。
+
+## 扫描仪
+**此设备需安装exposure模组才能使用。**
+
+- 自带网络模块，无需额外安装。
+- 联网时，右键打开并放入`已冲洗的胶卷`或`照片`可以扫描底片或照片并保存至手机`相册`。
+
+---
+
+# 手机界面
+
+## 家居
+
+- 打开此界面需联网。
+- 此界面可查看所有自己的智能家居设备。
+- 配置智能家居设备的功能。
+
+## 相机
+
+- 拍照，拍完的照片可以在`相册`界面查看。
+- 按F5切换自拍模式。
+
+## 相册
+
+- 查看手机所拍照片与`扫描仪`扫描的照片。
+- 可以选择并打印照片，自动连接附近联网的`打印机`。
+- 照片文件地址：`<版本文件夹>/screenshots/phone_photo/<世界文件夹>`
+
+---
+
+# 常见问题
+
+**Q: 打印机/扫描仪为什么显示离线？**  
+*A: 设备需要接入网络（信号覆盖）才能使用，你需要在附近放置信号基站。*
+
+**Q: 没有游戏怎么办？**  
+*A: 下载pcl启动器，b站有很多教程。*
+
+---
+
+# 按键绑定
+
+## 手机
+- ***E/esc/右键*** 返回上一页
+- ***右键*** 拍照
+- ***G*** 打开手机（需手机在身上，`按键绑定`界面可改）
+
+---
+
+# 最后的话
+
+本模组还在起步阶段，功能不多。  
+有些按钮点击没有反应是正常的，因为功能还没做。  
+以后模型和gui会重做。  
+感谢Codex。

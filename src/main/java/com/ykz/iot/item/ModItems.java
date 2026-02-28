@@ -11,7 +11,7 @@ public class ModItems {
             DeferredRegister.createItems(InternetofThings.MODID);
 
     public static final DeferredItem<Item> PHONE =
-            ITEMS.register("phone", () -> new PhoneItem(new Item.Properties()));
+            ITEMS.register("phone", () -> new PhoneItem(new Item.Properties().stacksTo(1)));
 
     public static final DeferredItem<Item> NETWORK_MODULE =
             ITEMS.register("network_module", () -> new NetworkModuleItem(new Item.Properties()));
