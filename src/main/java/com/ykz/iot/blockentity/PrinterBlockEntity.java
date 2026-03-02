@@ -30,7 +30,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PrinterBlockEntity extends BaseContainerBlockEntity {
-    public static final int PRINT_DURATION_TICKS = 200;
+    public static final int PRINT_DURATION_TICKS = 60;
     private static final int MAX_PIXELS = 2048 * 2048;
 
     private final ContainerData data = new ContainerData() {
@@ -149,11 +149,17 @@ public class PrinterBlockEntity extends BaseContainerBlockEntity {
 
     public void consumeOneSetOfDyes() {
         getItem(PrinterSlots.PAPER).shrink(1);
-        getItem(PrinterSlots.CYAN).shrink(1);
-        getItem(PrinterSlots.MAGENTA).shrink(1);
-        getItem(PrinterSlots.YELLOW).shrink(1);
-        getItem(PrinterSlots.BLACK).shrink(1);
+        consumeDyeWithChance(PrinterSlots.CYAN);
+        consumeDyeWithChance(PrinterSlots.MAGENTA);
+        consumeDyeWithChance(PrinterSlots.YELLOW);
+        consumeDyeWithChance(PrinterSlots.BLACK);
         setChanged();
+    }
+
+    private void consumeDyeWithChance(int slot) {
+        if (ThreadLocalRandom.current().nextBoolean()) {
+            getItem(slot).shrink(1);
+        }
     }
 
     public StartCheck checkCanStart() {

@@ -28,7 +28,7 @@ public class ModBlocks {
     static {
         if (ExposureCompat.isLoaded()) {
             PRINTER = registerBlocks("printer",
-                    () -> new PrinterBlock(BlockBehaviour.Properties.of().strength(2.5F))
+                    () -> new PrinterBlock(BlockBehaviour.Properties.of().strength(2.5F).noOcclusion())
             );
             SCANNER = registerBlocks("scanner",
                     () -> new ScannerBlock(BlockBehaviour.Properties.of().strength(2.5F))

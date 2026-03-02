@@ -2,16 +2,12 @@ package com.ykz.iot.network;
 
 import com.ykz.iot.InternetofThings;
 import com.ykz.iot.network.payload.SignalLevelPayload;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = InternetofThings.MODID)
 public final class IotNetworkPayloads {
     private IotNetworkPayloads() {}
 
-    @SubscribeEvent
     public static void onRegisterPayloads(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
 

@@ -13,14 +13,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.jetbrains.annotations.Nullable;
 
-@EventBusSubscriber(modid = InternetofThings.MODID, bus = EventBusSubscriber.Bus.MOD)
 public final class PrinterNetworkService {
     private static final int SEARCH_CHUNK_RADIUS = 64;
     private static final int MAX_PIXELS = 2048 * 2048;
@@ -28,7 +25,6 @@ public final class PrinterNetworkService {
     private PrinterNetworkService() {
     }
 
-    @SubscribeEvent
     public static void onRegisterPayloads(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar("1");
 

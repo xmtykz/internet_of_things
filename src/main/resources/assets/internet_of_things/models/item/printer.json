@@ -1,3 +1,4 @@
 {
-  "parent": "internet_of_things:block/printer"
+  "parent": "internet_of_things:block/printer",
+  "gui_light": "front"
 }

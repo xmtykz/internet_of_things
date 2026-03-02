@@ -30,7 +30,7 @@ import java.util.UUID;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class ScannerBlockEntity extends BaseContainerBlockEntity {
-    public static final int SCAN_DURATION_TICKS = 200;
+    public static final int SCAN_DURATION_TICKS = 60;
 
     public enum StartCheck {
         OK,
