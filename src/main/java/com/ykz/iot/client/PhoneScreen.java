@@ -4,6 +4,7 @@ import com.ykz.iot.client.exposure.ExposureMissingScreen;
 import com.ykz.iot.client.exposure.PhoneAlbumScreen;
 import com.ykz.iot.client.home.HomeOfflineScreen;
 import com.ykz.iot.client.home.HomeScreen;
+import com.ykz.iot.client.trade.PhoneTradeScreen;
 import com.ykz.iot.compat.exposure.ExposureCompat;
 import com.ykz.iot.util.SignalTextFormatter;
 import net.minecraft.client.gui.GuiGraphics;
@@ -42,7 +43,13 @@ public class PhoneScreen extends Screen {
                 })
                 .pos(leftX, topY).size(buttonW, buttonH).build());
 
-        this.addRenderableWidget(Button.builder(Component.translatable("screen.internet_of_things.phone.trade"), b -> {})
+        this.addRenderableWidget(Button.builder(Component.translatable("screen.internet_of_things.phone.trade"), b -> {
+                    if (ClientSignalCache.getSignalLevel() < 1) {
+                        this.minecraft.setScreen(new HomeOfflineScreen(this));
+                    } else {
+                        this.minecraft.setScreen(new PhoneTradeScreen(this));
+                    }
+                })
                 .pos(rightX, topY).size(buttonW, buttonH).build());
 
         this.addRenderableWidget(Button.builder(Component.translatable("screen.internet_of_things.phone.home"), b -> {

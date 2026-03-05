@@ -3,6 +3,7 @@ package com.ykz.iot;
 import com.mojang.logging.LogUtils;
 import com.ykz.iot.block.ModBlocks;
 import com.ykz.iot.blockentity.ModBlockEntities;
+import com.ykz.iot.debug.DebugNetworkService;
 import com.ykz.iot.item.ModCreativeModeTabs;
 import com.ykz.iot.item.ModItems;
 import com.ykz.iot.menu.ModMenus;
@@ -10,6 +11,7 @@ import com.ykz.iot.network.DeviceNetworkService;
 import com.ykz.iot.network.IotNetworkPayloads;
 import com.ykz.iot.network.PrinterNetworkService;
 import com.ykz.iot.network.ScannerNetworkService;
+import com.ykz.iot.network.TradeNetworkService;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -34,9 +36,11 @@ public class InternetofThings {
         ModBlockEntities.register(modEventBus);
         ModMenus.register(modEventBus);
         modEventBus.addListener(DeviceNetworkService::onRegisterPayloads);
+        modEventBus.addListener(DebugNetworkService::onRegisterPayloads);
         modEventBus.addListener(IotNetworkPayloads::onRegisterPayloads);
         modEventBus.addListener(PrinterNetworkService::onRegisterPayloads);
         modEventBus.addListener(ScannerNetworkService::onRegisterPayloads);
+        modEventBus.addListener(TradeNetworkService::onRegisterPayloads);
 
         NeoForge.EVENT_BUS.register(this);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
